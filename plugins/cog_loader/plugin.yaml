@@ -1,0 +1,34 @@
+name: cog-loader
+label: Cog Loader
+kind: extension
+version: 1.0.0
+description: >
+  Generic loader for third-party discord.py cogs. Scans a configured
+  directory for .py files + calls each file's register(ctx) or
+  setup(bot, tree) entry point. Domain-agnostic: the loader itself
+  contains no business-specific cogs.
+author: SignVault
+hooks: []
+config_schema:
+  cogs_dir:
+    type: string
+    default: "${HERMES_HOME}/cogs"
+    description: "Directory containing the third-party cog .py files"
+  enabled:
+    type: boolean
+    default: true
+    description: "Set to false to disable the loader entirely"
+  enabled_cogs:
+    type: array
+    items: { type: string }
+    default: null
+    description: "If set, only load cogs in this list (whitelist mode)"
+  disabled_cogs:
+    type: array
+    items: { type: string }
+    default: null
+    description: "Cogs in this list are skipped (blacklist mode)"
+env:
+  - name: HERMES_COGS_DIR
+    description: "Override cogs_dir (used by tests + out-of-band deployments)"
+    required: false
